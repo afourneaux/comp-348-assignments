@@ -62,7 +62,7 @@ public class Employee implements Person{
      * @throws NumberFormatException if the salary is not a valid number
      * @throws javax.naming.directory.InvalidAttributeValueException
      */
-    public static Person parse(String employeeString) throws NumberFormatException, InvalidAttributeValueException {
+    public static Person parse(final String employeeString) throws NumberFormatException, InvalidAttributeValueException {
         String[] attributes = employeeString.split(",");
         return new Employee(attributes[ID], attributes[FIRST_NAME], attributes[LAST_NAME], new BigDecimal(attributes[SALARY]));
     }

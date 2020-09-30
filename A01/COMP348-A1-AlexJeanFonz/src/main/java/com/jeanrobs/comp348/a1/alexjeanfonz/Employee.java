@@ -16,7 +16,7 @@ public class Employee implements Person{
     
     //Constants
     private final static int ID = 0, FIRST_NAME = 1, LAST_NAME = 2, SALARY = 3;
-    private final static String isIntRegex = "^\\d+$";
+    private final static String IS_INT_REGEX = "^\\d+$";
     
     //Constructor
     public Employee(final String id, final String firstName, final String lastName, final BigDecimal salary) throws InvalidAttributeValueException {
@@ -44,7 +44,7 @@ public class Employee implements Person{
              throw new InvalidAttributeValueException("Id needs to be 7 digits");
         }
         
-        if (!id.matches(isIntRegex)) {
+        if (!id.matches(IS_INT_REGEX)) {
              throw new InvalidAttributeValueException("Id needs to be only digits");
         }
         

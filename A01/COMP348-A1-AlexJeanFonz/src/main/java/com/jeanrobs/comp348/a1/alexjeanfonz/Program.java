@@ -53,6 +53,15 @@ public class Program {
         } catch (Exception e) {
             System.out.println(e.toString());
         }
+        
+         //Wrong parse = missing a field
+        String employeeString6 = "4563df2,Jean,20000";
+        try {
+            Person p = Employee.parse(employeeString6);
+            System.out.println(p);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
     
 }

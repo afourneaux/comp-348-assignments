@@ -2,7 +2,6 @@ package com.jeanrobs.comp348.a1.alexjeanfonz;
 
 import java.math.BigDecimal;
 import java.util.Objects;
-import javax.naming.directory.InvalidAttributeValueException;
 
 /**
  * Employee class
@@ -19,7 +18,7 @@ public class Employee implements Person{
     private final static String IS_INT_REGEX = "^\\d+$";
     
     //Constructor
-    public Employee(final String id, final String firstName, final String lastName, final BigDecimal salary) throws InvalidAttributeValueException {
+    public Employee(final String id, final String firstName, final String lastName, final BigDecimal salary) { 
         //Check for null vars
         Objects.requireNonNull(id);
         Objects.requireNonNull(firstName);
@@ -28,24 +27,24 @@ public class Employee implements Person{
         
         //Check for empty vars
         if (id.isEmpty()) {
-            throw new InvalidAttributeValueException("Id can't be empty");
+            throw new IllegalArgumentException("Id can't be empty");
         }
         
         if (firstName.isEmpty()) {
-            throw new InvalidAttributeValueException("First name can't be empty");
+            throw new IllegalArgumentException("First name can't be empty");
         }
         
         if (lastName.isEmpty()) {
-            throw new InvalidAttributeValueException("Last name can't be empty");
+            throw new IllegalArgumentException("Last name can't be empty");
         }
         
         //Check that the id has 7 digits
         if (id.length() != 7) {
-             throw new InvalidAttributeValueException("Id needs to be 7 digits");
+             throw new IllegalArgumentException("Id needs to be 7 digits");
         }
         
         if (!id.matches(IS_INT_REGEX)) {
-             throw new InvalidAttributeValueException("Id needs to be only digits");
+             throw new IllegalArgumentException("Id needs to be only digits");
         }
         
         this.id = id;
@@ -60,10 +59,12 @@ public class Employee implements Person{
      * @param employeeString  Format: "id,firstname,lastname,salary"
      * @return A constructed employee
      * @throws NumberFormatException if the salary is not a valid number
-     * @throws javax.naming.directory.InvalidAttributeValueException
      */
-    public static Person parse(final String employeeString) throws NumberFormatException, InvalidAttributeValueException {
+    public static Person parse(final String employeeString) throws NumberFormatException {
         String[] attributes = employeeString.split(",");
+        if (attributes.length != 4) {
+            throw new IllegalArgumentException("Invalid parse string. Number of columns needs to be exactly 4.");
+        }
         return new Employee(attributes[ID], attributes[FIRST_NAME], attributes[LAST_NAME], new BigDecimal(attributes[SALARY]));
     }
     
@@ -87,6 +88,5 @@ public class Employee implements Person{
     public String toString() {
         return String.format("Id: %s, Name: %s %s, Salary: %s", this.id, this.firstName, this.lastName, this.salary);
     }
-    
     
 }

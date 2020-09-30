@@ -44,6 +44,15 @@ public class Program {
         } catch (Exception e) {
             System.out.println(e.toString());
         }
+        
+         //Wrong parse = salary not a number
+        String employeeString5 = "4563df2,Jean,Robatto,salary";
+        try {
+            Person p = Employee.parse(employeeString5);
+            System.out.println(p);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
     
 }

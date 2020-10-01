@@ -1,5 +1,13 @@
 package com.alexjeanfonz;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  * App entrypoint
  * @author jeanrobatto
@@ -7,6 +15,44 @@ package com.alexjeanfonz;
 public class Program {
     
     public static void main(String[] args) {
+        PartOneTests();
+        
+        Employee[] employees = new Employee[0];
+        try {
+            employees = ReadEmployeesFromFile();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        
+        // TEST: Output the first read employee
+        if (employees.length > 0) {
+            System.out.println(employees[0].toString());
+        } else {
+            System.out.println("Employees list is empty!");
+        }
+        
+    }
+    
+    public static Employee[] ReadEmployeesFromFile() {
+        Employee[] employees = new Employee[0];
+        String filename = UserInput("Please enter a file name:");
+        // try-with-resources
+        try (BufferedReader br = new BufferedReader(new FileReader("./data/" + filename + ".txt"))) {
+            employees = br.lines().map(Employee::parse).toArray(Employee[]::new);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return employees;
+    }
+    
+    public static String UserInput(String request) {
+        System.out.println(request);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+    
+    public static void PartOneTests() {
+        
         //Part 1 tests
         
         //Successful parse
@@ -63,5 +109,4 @@ public class Program {
             System.out.println(e.toString());
         }
     }
-    
 }

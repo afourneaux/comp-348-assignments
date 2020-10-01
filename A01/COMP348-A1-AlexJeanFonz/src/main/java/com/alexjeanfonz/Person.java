@@ -1,4 +1,4 @@
-package com.jeanrobs.comp348.a1.alexjeanfonz;
+package com.alexjeanfonz;
 
 /**
  * Person Interface

@@ -1,4 +1,4 @@
-package com.jeanrobs.comp348.a1.alexjeanfonz;
+package com.alexjeanfonz;
 
 import java.math.BigDecimal;
 import java.util.Objects;

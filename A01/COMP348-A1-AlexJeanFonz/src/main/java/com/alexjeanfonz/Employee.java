@@ -89,4 +89,17 @@ public class Employee implements Person{
         return String.format("Id: %s, Name: %s %s, Salary: %s", this.id, this.firstName, this.lastName, this.salary);
     }
     
+    // Return an enum representing the employee's salary bracket
+    public SalaryBracket getSalaryBracket() {
+        if (salary.compareTo(new BigDecimal(25000.00)) < 0) {
+            return SalaryBracket.First;
+        }
+        if (salary.compareTo(new BigDecimal(40000.00)) < 0) {
+            return SalaryBracket.Second;
+        }
+        if (salary.compareTo(new BigDecimal(70000.00)) < 0) {
+            return SalaryBracket.Third;
+        }
+        return SalaryBracket.Fourth;
+    }
 }

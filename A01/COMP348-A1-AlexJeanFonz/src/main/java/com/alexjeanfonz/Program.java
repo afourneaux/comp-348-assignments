@@ -86,8 +86,7 @@ public class Program {
         Arrays.stream(employees)
                 .collect(Collectors.groupingBy(Employee::getSalaryBracket, Collectors.summarizingDouble(empl -> empl.getSalary().doubleValue())))
                 .forEach((salaryBracket, summarizingDouble) -> {
-                    long count = summarizingDouble.getCount();
-                    System.out.printf("%s -> Average: %.2f| Count: %d", salaryBracket, summarizingDouble.getAverage(), count);
+                    System.out.printf("%s -> Average: %.2f| Count: %d", salaryBracket, summarizingDouble.getAverage(), summarizingDouble.getCount());
                     System.out.println();
                 });
         System.out.println("*************************************");

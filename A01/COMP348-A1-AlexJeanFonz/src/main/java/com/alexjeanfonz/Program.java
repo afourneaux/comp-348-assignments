@@ -4,17 +4,20 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.DoubleSummaryStatistics;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * App entrypoint
- * @author jeanrobatto
+ * @author Jean, Alex
  */
 public class Program {
     
     public static void main(String[] args) {
-        partOneTests();
-        
+        //Load Employees from file
         Employee[] employees = new Employee[0];
         try {
             employees = readEmployeesFromFile();
@@ -22,20 +25,16 @@ public class Program {
             System.out.println(e.toString());
         }
         
-        // TEST: Output the first read employee
         if (employees.length > 0) {
-            System.out.println(employees[0].toString());
-        } else {
-            System.out.println("Employees list is empty!");
+            displayEmployeeData(employees);
         }
-        
     }
     
     /**
      * Ask the user for a file name, read the file, and convert its contents to Employee objects
      * @return An array of employees as described in the data file
      */
-    public static Employee[] readEmployeesFromFile() {
+    private static Employee[] readEmployeesFromFile() {
         Employee[] employees = new Employee[0];
         String filename = userInput("Please enter a file name:");
         // try-with-resources
@@ -57,68 +56,45 @@ public class Program {
      * @param prompt The message to display for the user to prompt their input
      * @return The text input entered by the user
      */
-    public static String userInput(String prompt) {
+    private static String userInput(String prompt) {
         System.out.println(prompt);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
     
-    public static void partOneTests() {
+    /**
+     * Displays different sorted and filtered lists of employees
+     * @param employees 
+     */
+    private static void displayEmployeeData(Employee[] employees) {
+        //Sort by First name and Last name
+        System.out.println("SORT BY NAME");
+        Arrays.stream(employees)
+                .sorted(Comparator.comparing(Employee::getName))
+                     .forEach(System.out::println);
+        System.out.println("*************************************");
         
-        //Part 1 tests
+        //Sort by ID
+        System.out.println("SORT BY ID");
+        Arrays.stream(employees)
+                .sorted(Comparator.comparing(Employee::getId))
+                    .forEach(System.out::println);
+        System.out.println("*************************************");
         
-        //Successful parse
-        String employeeString1 = "4563723,Jean,Robatto,80000";
-        try {
-            Person p = Employee.parse(employeeString1);
-            System.out.println(p);
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
+        //Salary Ranges
+        System.out.println("SALARY BRACKET STATISTICS");
+        Arrays.stream(employees)
+                .collect(Collectors.groupingBy(Employee::getSalaryBracket, Collectors.summarizingDouble(empl -> empl.getSalary().doubleValue())))
+                .forEach((salaryBracket, summarizingDouble) -> {
+                    long count = summarizingDouble.getCount();
+                    System.out.printf("%s -> Average: %.2f| Count: %d", salaryBracket, summarizingDouble.getAverage(), count);
+                    System.out.println();
+                });
+        System.out.println("*************************************");
         
-        //Wrong parse = id too short
-        String employeeString2 = "4723,Jean,Robatto,80000";
-        try {
-            Person p = Employee.parse(employeeString2);
-            System.out.println(p);
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        
-        //Wrong parse = id not an int
-        String employeeString3 = "4563df2,Jean,Robatto,80000";
-        try {
-            Person p = Employee.parse(employeeString3);
-            System.out.println(p);
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        
-        //Wrong parse = empty strings
-        String employeeString4 = "4563df2,Jean,,80000";
-        try {
-            Person p = Employee.parse(employeeString4);
-            System.out.println(p);
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        
-         //Wrong parse = salary not a number
-        String employeeString5 = "4563df2,Jean,Robatto,salary";
-        try {
-            Person p = Employee.parse(employeeString5);
-            System.out.println(p);
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        
-         //Wrong parse = missing a field
-        String employeeString6 = "4563df2,Jean,20000";
-        try {
-            Person p = Employee.parse(employeeString6);
-            System.out.println(p);
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
+        //Total salary average and total count
+        System.out.println("TOTAL SALARY AVERAGE AND EMPLOYEE COUNT");
+        DoubleSummaryStatistics stats = Arrays.stream(employees).collect(Collectors.summarizingDouble(empl -> empl.getSalary().doubleValue()));
+        System.out.printf("Total salary average: %.2f | Total count: %d", stats.getAverage(), stats.getCount());
     }
 }

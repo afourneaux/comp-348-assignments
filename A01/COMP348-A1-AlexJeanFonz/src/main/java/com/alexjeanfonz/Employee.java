@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /**
  * Employee class
- * @author Alfonso
+ * @author Alfonso, Jean, Alex
  */
 public class Employee implements Person{
     
@@ -68,6 +68,23 @@ public class Employee implements Person{
         return new Employee(attributes[ID], attributes[FIRST_NAME], attributes[LAST_NAME], new BigDecimal(attributes[SALARY]));
     }
     
+    /**
+     * Get the employee's salary bracket, based on where they fall in various ranges.
+     * @return The employee's salary bracket enum
+     */
+    public SalaryBracket getSalaryBracket() {
+        if (salary.compareTo(new BigDecimal(25000.00)) < 0) {
+            return SalaryBracket.First;
+        }
+        if (salary.compareTo(new BigDecimal(40000.00)) < 0) {
+            return SalaryBracket.Second;
+        }
+        if (salary.compareTo(new BigDecimal(70000.00)) < 0) {
+            return SalaryBracket.Third;
+        }
+        return SalaryBracket.Fourth;
+    }
+    
     public BigDecimal getSalary() {
         return this.salary;
     }
@@ -87,22 +104,5 @@ public class Employee implements Person{
     @Override
     public String toString() {
         return String.format("Id: %s, Name: %s %s, Salary: %s", this.id, this.firstName, this.lastName, this.salary);
-    }
-    
-    /**
-     * Get the employee's salary bracket, based on where they fall in various ranges.
-     * @return The employee's salary bracket enum
-     */
-    public SalaryBracket getSalaryBracket() {
-        if (salary.compareTo(new BigDecimal(25000.00)) < 0) {
-            return SalaryBracket.First;
-        }
-        if (salary.compareTo(new BigDecimal(40000.00)) < 0) {
-            return SalaryBracket.Second;
-        }
-        if (salary.compareTo(new BigDecimal(70000.00)) < 0) {
-            return SalaryBracket.Third;
-        }
-        return SalaryBracket.Fourth;
     }
 }

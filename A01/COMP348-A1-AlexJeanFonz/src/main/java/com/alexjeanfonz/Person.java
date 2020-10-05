@@ -2,9 +2,10 @@ package com.alexjeanfonz;
 
 /**
  * Person Interface
- * @author Alfonso
+ * @author Jean
  */
 public interface Person {
-    String getName();
+    String getFirstName();
+    String getLastName();
     String getId();
 }

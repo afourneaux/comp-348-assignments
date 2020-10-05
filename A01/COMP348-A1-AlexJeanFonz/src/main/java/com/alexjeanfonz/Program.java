@@ -67,14 +67,22 @@ public class Program {
      * @param employees 
      */
     private static void displayEmployeeData(Employee[] employees) {
-        //Sort by First name and Last name
-        System.out.println("SORT BY NAME");
-        Arrays.stream(employees)
-                .sorted(Comparator.comparing(Employee::getName))
-                     .forEach(System.out::println);
+        //Sort and display by First name and Last name
+        System.out.println("SORT BY LAST NAME, THEN FIRST NAME");
+        Arrays.sort(employees,(Employee a, Employee b) -> {
+                    //Handle nulls
+                    String firstA = a.getFirstName() != null ? a.getFirstName() : "";
+                    String firstB = b.getFirstName() != null ? b.getFirstName() : "";
+                    String lastA = a.getLastName() != null ? a.getLastName() : "";
+                    String lastB = b.getLastName() != null ? b.getLastName() : "";
+
+                    int ck = (lastA).compareTo(lastB); // lastName
+                    return ck != 0 ? ck : (firstA).compareTo(firstB); // then firstName
+                });
+        Arrays.stream(employees).forEach(System.out::println);
         System.out.println("*************************************");
         
-        //Sort by ID
+        //Sort and display by ID
         System.out.println("SORT BY ID");
         Arrays.stream(employees)
                 .sorted(Comparator.comparing(Employee::getId))

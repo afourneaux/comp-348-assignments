@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /**
  * Employee class
- * @author Alfonso, Jean, Alex
+ * @author Jean, Alex
  */
 public class Employee implements Person{
     
@@ -96,8 +96,13 @@ public class Employee implements Person{
     }
     
     @Override
-    public String getName() {
-        return this.firstName + " " + this.lastName;
+    public String getFirstName() {
+        return this.firstName;
+    }
+    
+    @Override
+    public String getLastName() {
+        return this.lastName;
     }
     
     //Object methods

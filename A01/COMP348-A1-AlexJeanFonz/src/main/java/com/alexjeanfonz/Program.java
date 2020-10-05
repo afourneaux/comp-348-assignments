@@ -84,9 +84,8 @@ public class Program {
         
         //Sort and display by ID
         System.out.println("SORT BY ID");
-        Arrays.stream(employees)
-                .sorted(Comparator.comparing(Employee::getId))
-                    .forEach(System.out::println);
+        Arrays.sort(employees, Comparator.comparing(Employee::getId));
+        Arrays.stream(employees).forEach(System.out::println);
         System.out.println("*************************************");
         
         //Salary Ranges

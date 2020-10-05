@@ -1,0 +1,63 @@
+% Q5: Provide a knowledge-base of clauses specifying you and 
+% your teams courses in PROLOG.
+
+% ****DATA****
+
+% student(Firstname, Lastname, ID)
+student(jean, robatto, 40174292).
+student(alexander, fourneaux, 40022711).
+student(alfonse, fiorani, 27543107).
+
+% course(Name, Number)
+course(comp-348, 'Principles of Programming Languages').
+course(comp-355, 'Introduction to Theoretical Computer Science').
+course(comp-345, 'Advanced Program Design, C++').
+course(comp-352, 'Data Structures and Algorithms').
+course(comp-228, 'System Hardware').
+course(comp-232, 'Mathematics for Computer Science').
+course(math-205, 'Differential and Integral Calculus II').
+course(mar-201, 'Introduction to Marketing').
+
+% is_taking(Student, Course)
+is_taking(40174292, comp-348).
+is_taking(40174292, comp-228).
+is_taking(40174292, comp-232).
+is_taking(40174292, math-205).
+is_taking(40174292, mar-201).
+
+is_taking(40022711, comp-348).
+is_taking(40022711, comp-355).
+
+is_taking(27543107, comp-348).
+is_taking(27543107, comp-352).
+is_taking(27543107, comp-345).
+
+% ****QUERIES****
+
+courses_taken_by_each_student(S, R) :- 
+    student(_, _, S),
+    findall(C, is_taking(S, C), R).
+
+get_team_size(N) :- 
+    findall(S, student(_,_,S), StudentList),
+    length(StudentList, N).
+
+get_classes_in_common(R) :-
+    findall(S, student(_,_,S), StudentList),
+    intersect_classes(StudentList, _, I),
+    sort(I, R).
+
+intersect_classes([Student1|StudentTail], Working, FinalIntersect) :-
+    findall(C, is_taking(Student1, C), R),
+    intersection(R, Working, Intersect),
+    intersect_classes(StudentTail, Intersect, FinalIntersect).
+
+intersect_classes([], Working, Intersect) :-
+    Intersect = Working.
+
+% [A,B|C] = get_classes_in_common(R) unification returns false because there is only 1 class we have in common.
+% A=comp-348, B is nothing because there is only one element, hence the "false" return.
+% C=[] 
+
+
+    

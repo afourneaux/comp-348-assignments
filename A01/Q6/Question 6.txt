@@ -1,0 +1,40 @@
+% QUESTION 1
+%Data
+
+start(s1).
+final(s1).
+transition(s1, a, s2).
+transition(s2, a, s2).
+transition(s2, b, s1).
+transition(s2, c, s4).
+transition(s3, a, s1).
+transition(s3, b, s4).
+transition(s4, d, s3).
+
+
+%QUESTION 2
+%Functionality
+
+walk(Word) :-
+    start(State),
+    walk_recurse(State, Word).
+
+walk_recurse(State1, [Head|Tail]) :-
+    transition(State1, Head, State2),
+    walk_recurse(State2, Tail).
+
+walk_recurse(State, []) :-
+    final(State).
+
+
+%Query
+
+walk([a, a, b]).
+
+%QUESTION 3
+% We may simply follow the arrows of the transitions.
+% From the initial state, S1, we first see "a" which 
+% transitions to state S2. The next character is "a"
+% which loops back to S2. The final "b" transitions to
+% S1. Since we are out of input and on a final state,
+% we know the machine accepts "aab"

@@ -79,7 +79,7 @@ X = anna
 X = daniel
 X = adrian
  
-8. 
+8. (Ground)
 
 - student(X,fine-arts) is unified and replaced with student(X, fine-arts) :- field(Z, fine-arts), student(X, Z).
 - field(Z, fine-arts) is unified with field(X, fine-arts) :- course(X, Z), field(Z, fine-arts).
@@ -91,7 +91,7 @@ X = adrian
 - Since there is no course course(_, X) that matches field(X, fine-arts), the result is false
 Return false
 
-9. 
+9. (Non-Ground)
 
 - Unify field(_, X) with all field clauses: 
 	- engineering
@@ -104,7 +104,7 @@ Return false
 	- course(hit_transfer, mechanical) -> field(mechanical,engineering)
 	- course(web_design,computer) -> field(computer, engineering)
 	- etc for all courses
-Result:
+X =
 engineering
 engineering
 art
@@ -116,10 +116,38 @@ art
 social
 business
 
-10.
+10. (Ground)
 
 - Unify lab_number(_,X), field(X,Y) with first result: X = 15, look for field(15,Y), which has no results.
 - Same for X = 10
-- 
+- Unify with the rule, creating new query: lab_number(_, X) :- course(X, Y), lab_number(Y, X). field(X, Y).
 
 
+11. (Non-Ground)
+
+- Clause lab_number(X, 15) is found with X = mechanical.
+- Clause field(mechanical, Y) is found with Y = engineering.
+X = mechanical
+Y = engineering
+
+12. (Non-Ground)
+
+13. (Non-Ground)
+
+- clause student(X) is found as student(X,_)
+- student(X,_) first unifies with X = anna
+- Cut prevents backtracking and stops further processing
+X = anna
+
+14. (Non-Ground)
+
+- First unify course(X,_) with X = hit_transfer
+- There are students matching student(_,hit_transfer) so we go to the next course
+- X cycles through:
+    web_design
+    design_methods
+    poetry
+    leadership
+    biology
+- Only biology does not have any students such that student(_,biology)
+X = biology

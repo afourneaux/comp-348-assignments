@@ -120,8 +120,10 @@ business
 
 - Unify lab_number(_,X), field(X,Y) with first result: X = 15, look for field(15,Y), which has no results.
 - Same for X = 10
-- Unify with the rule, creating new query: lab_number(_, X) :- course(X, Y), lab_number(Y, X). field(X, Y).
-
+- Unify with the rule, creating new query: lab_number(_, X) :- course(X, Y), lab_number(Y, X).
+- Go over all courses, and for any course(X,Y) where Y is in a clause lab(Y, Z), return the lab number.
+- Only match is hit_transfer (because fine-arts and fine_arts have different spelling), where Y = mechanical, and lab(mechanical, 15). So X = 15 again, which, again, has no results.
+Return: false
 
 11. (Non-Ground)
 
@@ -131,6 +133,16 @@ X = mechanical
 Y = engineering
 
 12. (Non-Ground)
+
+- student(X) searches the db for clauses from top to bottom. The first match is X = anna.
+- the "cut" operator prevents backtracking, so the first part of the query is "fixed" as only anna.
+- the second part is student(X, _), which instantiates X = anna.
+- student(anna, _) looks for clauses, and finds student(anna, hit_transfer). So the first result is X = anna
+- then the query is unified with the rule student(X, Y) :- field(Z, Y), student(X, Z), which is now student(anna, Y) :- field(Z, Y), student(anna, Z).
+- same procedure as question 5, the only result is student(anna, engineering), therefore the next result is X = anna
+Returns
+X = anna ; 
+X = anna ;
 
 13. (Non-Ground)
 

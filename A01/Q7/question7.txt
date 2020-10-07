@@ -1,0 +1,55 @@
+% My Programs Functions (inverse, OR/AND operators) inv(1,0).
+
+inv(0,1).
+inv(1,0).
+
+or(0,0,0). 
+or(0,1,1). 
+or(1,0,1). 
+or(1,1,1).
+
+and(0,0,0). 
+and(0,1,0). 
+and(1,0,0). 
+and(1,1,1).
+
+% The 'p' in my variables refer to the prime of such variable
+
+circuit(A, B, C, D, Out) :- 
+    inv(B, Bp),
+    inv(C, Cp),
+    inv(D, Dp),
+    and(Bp, Dp, BpDp),
+    and(B, D, BD),
+    and(B, Dp, BDp),
+    and(C, D, CD),
+    and(Cp, Dp, CpDp),
+    and(C, Dp, CDp),
+    and(B, Cp, BCp),
+    and(BCp, D, BCpD),
+    and(Bp, C, BpC),
+    and(B, Cp, BCp),
+    or(A, BpDp, AorBpDp),
+    or(BD, C, BDorC),
+    or(AorBpDp, BDorC, OutA),
+    or(CpDp, D, CpDporD),
+    or(A, Bp, AorBp),
+    or(CD, CpDp, CDorCpDp),
+    or(AorBp, CDorCpDp, OutB),
+    or(B, CpDporD, OutC),
+    or(CDp, BCpD, CDporBCpD),
+    or(CDporBCpD, BpC, CDporBCpDorBpC),
+    or(CDporBCpDorBpC, AorBpDp, OutD),
+    or(BpDp, CDp, OutE),
+    or(A, BDp, AorBDp),
+    or(CpDp, BCp, CpDporBCp),
+    or(AorBDp, CpDporBCp, OutF),
+    or(A, CDp, AorCDp),
+    or(BpC, BCp, BpCorBCp),
+    or(AorCDp, BpCorBCp, OutG),
+    Out = [OutA, OutB, OutC, OutD, OutE, OutF, OutG].
+
+%Query
+circuit(0,1,0,1,Out). %Result: Out = [1,0,1,1,0,1,1]
+
+

@@ -1,0 +1,79 @@
+1. food(bread, X) = Food(Y, soup)
+Failure, because variables cannot represent complex terms, like Food.
+
+2. Bread = soup
+Success
+Bread instantiates as soup
+
+3. Bread = Soup
+Success
+Bread and Soup are set to represent the same thing, though no value is yet determined.
+
+4. food(bread, X, milk) = food(Y, salad, X)
+Failure, because X cannot instantiate to both salad and milk.
+
+5. manager(X) = Y
+Success,
+Y instantiates to manager(X)
+
+6. meal(healthyFood(bread), drink(milk)) = meal(X,Y)
+Success
+X instantiates to healthyFood(bread)
+Y instantiates to drink(milk)
+
+7. meal(eat(Z), drink(milk)) = [X]
+Failure
+X is within a list, meal(...) is not.
+
+8. [eat(Z), drink(milk)] = [X, Y | Z]
+Success
+X instantiates to eat([])
+Y instantiates to drink(milk)
+Z instantiates to an empty list
+
+9. f(X, t(b, c)) = f(l, t(Z, c))
+Success
+X instantiates to l
+Z instantiates to b
+
+10. ancestor(french(jean), B) = ancestor(A, scottish(joe))
+Success
+B instantiates to scottish(joe)
+A instantiates to french(jean)
+
+11. meal(healthyFood(bread), Y) = meal(X, drink(water))
+Success
+Y instantiates to drink(water)
+X instantiates to healthyFood(bread)
+
+12. [H|T] = [a, b, c]
+Success
+H instantiates to a
+T instantiates to [b, c]
+
+13. [H, T] = [a, b, c]
+Failure
+There are not enough variables in the list [H, T] to obtain [a, b, c]
+
+14. breakfast(healthyFood(bread), egg, milk) = breakfast(healthyFood(Y), Y, Z)
+Failure
+Y cannot be instantiated as both bread and egg
+
+15. dinner(X, Y, Time) = dinner(jack, cook( egg, oil), Evening)
+Success
+X instantiates to jack
+Y instantiates to cook(egg, oil)
+Time and Evening will be set as the same thing, but not directly instantiated to a value
+
+16. k(s(g), Y) = k(X, t(k))
+Success
+Y is instantaited to t(k)
+X is instantiated to s(g)
+
+17. equation(Z, f(x, 17, M), L*M, 17) = equation(C, f(D, D, y), C, E)
+Failure
+D cannot be instantiated to both x and 17
+
+18. a(X, b(c, d), [H|T]) = a(X, b(c, X), b)
+Failure
+[H|T] cannot be instantiated in such a way that it represents "b"

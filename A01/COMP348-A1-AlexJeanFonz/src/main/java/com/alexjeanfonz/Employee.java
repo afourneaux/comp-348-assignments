@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /**
  * Employee class
- * @author Alfonso
+ * @author Jean, Alex
  */
 public class Employee implements Person{
     
@@ -68,27 +68,6 @@ public class Employee implements Person{
         return new Employee(attributes[ID], attributes[FIRST_NAME], attributes[LAST_NAME], new BigDecimal(attributes[SALARY]));
     }
     
-    public BigDecimal getSalary() {
-        return this.salary;
-    }
-    
-    //Interface methods
-    @Override
-    public String getId() {
-        return this.id;
-    }
-    
-    @Override
-    public String getName() {
-        return this.firstName + " " + this.lastName;
-    }
-    
-    //Object methods
-    @Override
-    public String toString() {
-        return String.format("Id: %s, Name: %s %s, Salary: %s", this.id, this.firstName, this.lastName, this.salary);
-    }
-    
     /**
      * Get the employee's salary bracket, based on where they fall in various ranges.
      * @return The employee's salary bracket enum
@@ -104,5 +83,31 @@ public class Employee implements Person{
             return SalaryBracket.Third;
         }
         return SalaryBracket.Fourth;
+    }
+    
+    public BigDecimal getSalary() {
+        return this.salary;
+    }
+    
+    //Interface methods
+    @Override
+    public String getId() {
+        return this.id;
+    }
+    
+    @Override
+    public String getFirstName() {
+        return this.firstName;
+    }
+    
+    @Override
+    public String getLastName() {
+        return this.lastName;
+    }
+    
+    //Object methods
+    @Override
+    public String toString() {
+        return String.format("Id: %s, Name: %s %s, Salary: %s", this.id, this.firstName, this.lastName, this.salary);
     }
 }

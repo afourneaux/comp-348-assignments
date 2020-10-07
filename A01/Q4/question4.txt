@@ -1,0 +1,165 @@
+Question 4 - Jean Robatto
+
+For the following questions, the basic prolog workflow goes as follows:
+a. Look for a clause that matches the query, if one is found unify with that clause and return the result.
+b. If no clause is found, look for a rule that satisfies the query. If one is found unify with that rule.
+c. Instantiate the variables in the rule with the ones in the query, and start again at 1 for every part of the rule.
+
+Note: Searches happen from top to bottom.
+Note: Ground queries return T/F, and non-ground queries return a value
+
+1. (Ground)
+
+- No clause that matches field(hit_transfer,engineering).
+- Rule found: field(X, Y) :- course(X, Z), field(Z, Y).
+- Instantiate X,Y to give the new query field(hit_transfer, engineering) :- course(hit_transfer, Z), field(Z, engineering).
+- Clause found course(hit_transfer, mechanical), so Z is instantiated to mechanical
+- Clause field(mechanical, engineering). is true, therefore the query is true.
+Returns true.
+
+2. (Non-ground)
+
+- Clause lab_number(fine_arts,10). is found. X is instantiated to 10.
+Returns X = 10.
+
+3. (Ground)
+
+- No clause that matches field(computer,literature).
+- Rule found: field(X, Y) :- course(X, Z), field(Z, Y).
+- Instantiate X,Y to give the new query field(computer, literature) :- course(computer, Z), field(Z, literature).
+- Clause not found for course(computer, Z), so this part is false.
+- The query is false.
+Returns false.
+
+4. (Non-ground)
+
+- Clause found course(hit_transfer, mechanical), instantiates X to hit_transfer, Y to mechanical.
+The user can then press enter to exit, or ';' to continue. If the user continues, the next clause(X,Y) is selected from the data:
+- course(web_design,computer), X = web_design, Y = computer.
+This process will continue until there are no more course(X,Y) clauses.
+
+5. (Ground)
+
+- No clause student(adrian). found.
+- Unifies with rule student(X, _), and instantiates X to adrian.
+- Clause student(adrian, _) exists.
+Return true
+
+6. (Ground)
+
+- Clause student(anna, engineering). not found
+- Unifies with rule rule student(anna, engineering), and instantiates X = anna, Y = engineering.
+- Creates new query student(anna, engineering) :- field(Z, engineering), student(anna, Z).
+- field(Z, engineering) unifies with field(mechanical,engineering), so Z = mechanical
+- student(anna, mechainical) returns false
+- field(Z, engineering) unifies with field(computer,engineering), so Z = computer
+- student(anna, computer) returns false
+- field(Z, engineering) unifies with rule field(X, Y) :- course(X, Z), field(Z, Y).
+- New query created: field(X, engineering) :- course(X, Z), field(Z, engineering).
+- course(X, Z) unified with course(hit_transfer, mechanical)
+- field(mechanical, engineering) is true, so X = hit_transfer
+- student(anna, hit_transfer) is true.
+Return true
+
+7. (Non-ground)
+
+- student(X, engineering) :- field(Z, engineering), student(X, Z).
+- field(Z, engineering), Z = mechanical
+- student(X, mechanical) is false
+- field(Z, engineering), Z = computer
+- student(X, computer) is false
+- field(Z, engineering) :- course(X, Z), field(Z, engineering).
+- course(hit_transfer, mechanical), Z = hit_transfer
+- student(X, hit_transfer), X = anna, X = daniel
+- course(web_design,computer), Z = web_design
+- student(X, web_design), X = adrian
+- keep going for other courses, which all return false
+Return:
+X = anna
+X = daniel
+X = adrian
+ 
+8. (Ground)
+
+- student(X,fine-arts) is unified and replaced with student(X, fine-arts) :- field(Z, fine-arts), student(X, Z).
+- field(Z, fine-arts) is unified with field(X, fine-arts) :- course(X, Z), field(Z, fine-arts).
+- course(X,Z) is unified with course(hit_transfer, mechanical).
+- field(hit_transfer, fine-arts) is false.
+- course(X,Z) is unified with course(web_design,computer).
+- field(web_design,computer) is false.
+- etc. for every course.
+- Since there is no course course(_, X) that matches field(X, fine-arts), the result is false
+Return false
+
+9. (Non-Ground)
+
+- Unify field(_, X) with all field clauses: 
+	- engineering
+	- engineering
+	- art
+	- social
+	- business
+- Unify with rule, creating new query: field(_, X) :- course(_, Z), field(Z, X).
+- Unify course with all clauses, and show the field for the course:
+	- course(hit_transfer, mechanical) -> field(mechanical,engineering)
+	- course(web_design,computer) -> field(computer, engineering)
+	- etc for all courses
+X =
+engineering
+engineering
+art
+social
+business
+engineering
+engineering
+art
+social
+business
+
+10. (Ground)
+
+- Unify lab_number(_,X), field(X,Y) with first result: X = 15, look for field(15,Y), which has no results.
+- Same for X = 10
+- Unify with the rule, creating new query: lab_number(_, X) :- course(X, Y), lab_number(Y, X).
+- Go over all courses, and for any course(X,Y) where Y is in a clause lab(Y, Z), return the lab number.
+- Only match is hit_transfer (because fine-arts and fine_arts have different spelling), where Y = mechanical, and lab(mechanical, 15). So X = 15 again, which, again, has no results.
+Return: false
+
+11. (Non-Ground)
+
+- Clause lab_number(X, 15) is found with X = mechanical.
+- Clause field(mechanical, Y) is found with Y = engineering.
+X = mechanical
+Y = engineering
+
+12. (Non-Ground)
+
+- student(X) searches the db for clauses from top to bottom. The first match is X = anna.
+- the "cut" operator prevents backtracking, so the first part of the query is "fixed" as only anna.
+- the second part is student(X, _), which instantiates X = anna.
+- student(anna, _) looks for clauses, and finds student(anna, hit_transfer). So the first result is X = anna
+- then the query is unified with the rule student(X, Y) :- field(Z, Y), student(X, Z), which is now student(anna, Y) :- field(Z, Y), student(anna, Z).
+- same procedure as question 5, the only result is student(anna, engineering), therefore the next result is X = anna
+Returns
+X = anna ; 
+X = anna ;
+
+13. (Non-Ground)
+
+- clause student(X) is found as student(X,_)
+- student(X,_) first unifies with X = anna
+- Cut prevents backtracking and stops further processing
+X = anna
+
+14. (Non-Ground)
+
+- First unify course(X,_) with X = hit_transfer
+- There are students matching student(_,hit_transfer) so we go to the next course
+- X cycles through:
+    web_design
+    design_methods
+    poetry
+    leadership
+    biology
+- Only biology does not have any students such that student(_,biology)
+X = biology

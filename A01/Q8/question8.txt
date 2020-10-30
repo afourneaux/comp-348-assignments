@@ -1,0 +1,5 @@
+%Prolog rule to get the second half of a list (Q8)
+
+second_half(L, R) :- length(L, N), C is N / 2, C1 is ceiling(C), get_second_half(L, R, C1).
+get_second_half(L, L, 0).
+get_second_half([H|T], L, C) :- C1 is C - 1, get_second_half(T, L, C1).

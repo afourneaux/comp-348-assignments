@@ -1,0 +1,29 @@
+%Rules
+lucas(N, Out) :-
+    N < 1,
+    Out = [].
+
+lucas(N, Out) :-
+    lucas_recurse(2, N, _, Backwards),
+    reverse(Backwards, Out).
+
+lucas_recurse(_, 1, _, Out) :-
+    Out = [2].
+
+lucas_recurse(_, 2, _, Out) :-
+    Out = [1, 2].
+
+lucas_recurse(2, N, _, Out) :-
+    lucas_recurse(3, N, [1,2], Out).
+
+lucas_recurse(C, N, [L|LT], Out) :-
+    C > N,
+    Out = [L|LT].
+
+lucas_recurse(C, N, [L1|[L2|LT]], Out) :-
+    LN is L1+L2,
+    CN is C+1,
+    lucas_recurse(CN, N, [LN|[L1|[L2|LT]]], Out).
+
+%Query
+lucas(5, X)

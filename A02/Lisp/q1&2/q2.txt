@@ -1,0 +1,18 @@
+(defun sub-list
+           (list &optional (from 1) (to (list-length list)))
+           (cond
+             ((eq from NIL) (sub-list list 1 to))
+             ((eq to NIL) (sub-list list from (list-length list)))
+             ((or (< from 1) (< to 1) (> from (list-length list)) (> to (list-length list))) NIL)
+             ((or (and (> to from) (> from 1)) (and (> from to) (> to 1))) (sub-list (cdr list) (- from 1) (- to 1)))
+             ((cut-end list (if (> to from) to (- (- to 1) from))))
+           )
+
+(defun cut-end
+           (list length &optional (working (list)))
+             (cond
+               ((> length 0) (cut-end (cdr list) (- length 1) (append working (list (car list)))))
+               ((< length 0) (cut-end (cdr list) (+ length 1) (append (list (car list)) working)))
+               (working)
+               )
+           )

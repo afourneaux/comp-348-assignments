@@ -1,0 +1,17 @@
+(defun lucas (length)
+           (cond
+             ((< length 0)
+              (print "invalid length; please enter a positive integer"))
+              (t (reverse (lucas-recurse '() length))) 
+             ))
+
+(defun lucas-recurse (list length) 
+           (cond 
+             ((= (list-length list) length)
+              list)
+             ((= (list-length list) 0)
+              (lucas-recurse (list 2) length))
+             ((= (list-length list) 1)
+              (lucas-recurse (list 1 2) length))
+             (t (lucas-recurse (cons (+ (car list) (car (cdr list))) list) length))
+             ))

@@ -3,4 +3,4 @@ project(q10 C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_library(q10 library.c library.h)
+add_executable(q10 main.c selectionsort.c selectionsort.h)

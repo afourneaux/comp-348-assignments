@@ -1,3 +1,5 @@
+#include "selectionsort.h"
+
 static int* findmin(int* arr, int size) {
     int smallVal = arr[0];
     int * smallRef = &arr[0];
@@ -11,7 +13,7 @@ static int* findmin(int* arr, int size) {
     return smallRef;
 }
 
-int* selectionSort(int toSort[], int size) {
+void selectionsort(int toSort[], int size) {
     int bound;
     int* smallest;
     int swap;
@@ -21,5 +23,4 @@ int* selectionSort(int toSort[], int size) {
         toSort[bound] = *smallest;
         *smallest = swap;
     }
-    return toSort;
 }

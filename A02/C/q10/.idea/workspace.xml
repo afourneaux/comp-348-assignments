@@ -12,18 +12,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b13c7ec4-34db-4d67-be58-115b9eb6bded" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/q10.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/selectionsort.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TODO.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/untitled.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library.c" beforeDir="false" afterPath="$PROJECT_DIR$/selectionsort.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../q9/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../q9/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../q11/selectionsort.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../q11/selectionsort.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,11 +40,6 @@
     <property name="cf.first.check.clang-format" value="false" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="q10" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="q10" TARGET_NAME="q10" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="q10" RUN_TARGET_NAME="q10">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -74,6 +60,7 @@
       <option name="presentableId" value="Default" />
       <updated>1605066922926</updated>
       <workItem from="1605066928008" duration="102000" />
+      <workItem from="1605067270933" duration="335000" />
     </task>
     <servers />
   </component>

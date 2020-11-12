@@ -2,49 +2,98 @@
 #include <string.h>
 #include <stdlib.h>
 
-int main() {
-
-    return 0;
-}
-
 typedef struct node {
     char data[255];
     struct node *next;
 } node;
 
-node initlist(char data[]) {
+static node* initlist(char data[]);
+static node* insert_dictionary_order(node* head, char* word);
+static void print(node *head);
+static int find_dict_index(node* head, char* word);
+
+int main() {
+    char line[255];
+    char delimit[]= "\t\r\n\v\f "; //All whitespace characters
+    node *head = NULL;
+    printf("Please enter a list of words separated by a white space (space char, tab or newline).\n");
+    while (1==1) {
+        gets(&line);
+        if (strcmp(line, ".") == 0) {
+            break;
+        }
+        char *word = strtok(line, delimit);
+        while( word != NULL ) {
+            if (head == NULL) {
+                head = initlist(word);
+            } else {
+                head = insert_dictionary_order(head, word);
+            }
+            word = strtok(NULL, " ");
+        }
+    }
+    print(head);
+    return 0;
+}
+
+static node* initlist(char data[]) {
     node *head = NULL;
     head = malloc(sizeof(node));
     if (head == NULL) {
-        printf("Out of memory.");
+        printf("ERROR: Out of memory.");
         exit(1);
     }
-    head->data = data;
+    strcpy(head->data, data);
     head->next = NULL;
+    return head;
 }
 
-node *newnode(char data[]) {
-    int i;
-    node *head = NULL;
-    node *temp = NULL;
-    node *p = NULL;
-    temp = (struct node *)malloc(sizeof(struct node));
-    temp->clothing[10] = ch[10];
-    temp->next = NULL;
-    return temp;
+static node* insert_dictionary_order(node* head, char* word) {
+    node *newnode = malloc(sizeof(node)), *temp = head;
+    int i, index = find_dict_index(head, word);
+
+    if (newnode == NULL) {
+        printf("ERROR: Out of memory.");
+        exit(1);
+    }
+    strcpy(newnode->data, word);
+    newnode->next = NULL;
+
+    if (index == 0) {
+        newnode->next = head;
+        head = newnode;
+        return head;
+    }
+
+    for (i=0; i<index-1; i++) {
+        if(temp->next == NULL) {
+            break;
+        }
+        temp = temp->next;
+    }
+    newnode->next = temp->next;
+    temp->next = newnode;
+    return head;
 }
 
-// 2) print
-
-void print(node *head) {
+static int find_dict_index(node* head, char* word) {
+    int n = 0;
     node *p = head;
     while (p != NULL) {
-        printf("%s", p->clothing);
-        p = p->next;
+        if (strcmp(p->data, word) > 0) { //if after in order
+            break;
+        } else {
+            n+=1;
+            p = p->next;
+        }
     }
+    return n;
 }
 
-int main() {
-    node *head = create("clothing");
-    print(head);
+static void print(node *head) {
+    node *p = head;
+    while (p != NULL) {
+        printf("%s -> ", p->data);
+        p = p->next;
+    }
 }

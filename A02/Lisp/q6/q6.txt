@@ -1,0 +1,24 @@
+(defun make-cbtree (list) 
+    (let 
+     (
+      (root nil)
+      (placeholder-list '())
+      (left-flag 1)
+     )
+     (if (not list) return root)
+     (setf root (list (first list) '() '()))
+     (setf list (rest list))
+     (setf placeholder-list (append (list root) placeholder-list))
+      (dotimes 
+       (i (list-length list))
+          (let 
+           (
+            (n (list (first list) '() '()))
+            (ph (first placeholder-list)))
+           (if (= left-flag 1) (setf (second ph) n) (setf (third ph) n))
+           (if (= left-flag 1) (setf left-flag 0) (setf left-flag 1))
+           (if (= left-flag 1) (setf placeholder-list (rest placeholder-list)))
+           (setf placeholder-list (append placeholder-list (list n)))
+           (setf list (rest list))
+           ))
+root))

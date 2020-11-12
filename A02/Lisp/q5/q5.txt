@@ -1,0 +1,10 @@
+;This code REQUIRES code from Q1 to work.
+
+(defun split (list) 
+    (let 
+     ((counter (ceiling (/ (list-length list) 2)))) 
+     (list (subl list 1 counter) (subl list (+ 1 counter) (list-length list)))
+))
+
+
+

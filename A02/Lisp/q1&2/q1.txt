@@ -1,0 +1,17 @@
+(defun sub-list
+           (list from to)
+           (cond
+             ((< from 1) NIL)
+             ((> to (list-length list)) NIL)
+             ((> from 1) (sub-list (cdr list) (- from 1) (- to 1)))
+             ((> to 1) (cut-end list to))
+             (list)
+           ))
+
+(defun cut-end
+           (list length &optional (working (list)))
+             (cond
+               ((> length 0) (cut-end (cdr list) (- length 1) (append working (list (car list)))))
+               (working)
+               )
+           )

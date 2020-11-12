@@ -1,2 +1,12 @@
 /A01/COMP348-A1-AlexJeanFonz/target/
 .DS_Store
+# Default ignored files
+A02/C/*/shelf/
+A02/C/*/workspace.xml
+# Datasource local storage ignored files
+A02/C/*/dataSources/
+A02/C/*/dataSources.local.xml
+# Editor-based HTTP Client requests
+A02/C/*/httpRequests/
+# additional ignores
+A02/C/*/cmake-build-debug/

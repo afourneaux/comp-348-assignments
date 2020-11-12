@@ -1,0 +1,34 @@
+(defun print-row (size &optional (offset 0))
+           (cond
+             ((> offset 0)
+              (progn
+               (princ " ")
+               (print-row size (- offset 1))))
+             ((> size 0)
+              (progn
+               (princ "*")
+               (print-row (- size 1)))) 
+             (t (terpri))
+            ))
+
+(defun triangle (size &optional (offset 0)) 
+           (cond
+             ((not (integerp size))
+              (print "invalid number; please enter a positive or a negative integer"))
+             ((= size 0)
+              (print "invalid number; please enter a positive or a negative integer"))
+             ((> size 1) 
+              (progn 
+                (print-row size)
+                (triangle (- size 1))
+              ))
+             ((= size 1)
+              (print-row size))
+             ((< size -1)
+              (progn
+                (print-row (abs size) offset)
+                (triangle (+ size 1) (+ offset 1)))
+              )
+             ((= size -1)
+              (print-row (abs size) offset)) 
+            ))

@@ -17,6 +17,11 @@ int main(void) {
     printf("Enter the size of the array: ");
     scanf("%d", &n);
 
+    if (n <= 0) {
+        printf("Invalid size.");
+        exit(1);
+    }
+
     p_array = malloc(sizeof(int) * n);
     if (p_array == NULL) {
         printf("Error: Out of memory");

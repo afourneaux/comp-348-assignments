@@ -1,0 +1,32 @@
+(defun flatten (list)
+    (cond 
+        ((not list) nil) 
+        ((atom (car list)) (cons (car list) (flatten (cdr list)))) 
+        ((listp (car list)) (append (flatten (car list)) (flatten (cdr list))))))
+
+(defun filter-numbers (list) 
+    (cond 
+        ((not list) nil)
+        ((numberp (car list)) (cons (car list) (filter-numbers (cdr list))))
+        (t (filter-numbers(cdr list)))
+      )
+    )
+
+(defun rmv-duplicates (list) 
+    (cond
+        ((not list) nil)
+        ((member (car list) (cdr list)) (remove-duplicates (cdr list)))
+        (t (cons (car list) (remove-duplicates (cdr list))))
+    )
+)
+
+(defun flatten-numbers (list) 
+    (let* (
+           (flatlist (flatten list)) 
+           (filteredlist (filter-numbers flatlist))
+           (uniquelist (rmv-duplicates filteredlist))
+           )
+          uniquelist
+))
+
+(print (flatten-numbers '(1 2 (3 1) (a 2.5) (2 4.5) ((1 2)))))

@@ -1,0 +1,38 @@
+(defun isbst (tree)
+  (cond
+    ((and (null (second tree)) (null (third tree))) t)
+    ((null (second tree)) (isbst (third tree)))
+    ((null (third tree)) (isbst (second tree)))
+    ((and 
+      (is-subtree-lower (second tree) (first tree))
+      (is-subtree-greater (third tree) (first tree))
+      (isbst (second tree))
+      (isbst (third tree))
+     ) t)
+     )
+)
+
+(defun is-subtree-lower (tree value) 
+    (cond
+        ((not tree) t)
+        ((and 
+          (< (first tree) value) 
+          (is-subtree-lower (second tree) value) 
+          (is-subtree-lower (third tree) value) t))
+        (t nil)
+    )
+)     
+
+(defun is-subtree-greater (tree value) 
+    (cond
+        ((not tree) t)
+        ((and 
+          (> (first tree) value) 
+          (is-subtree-greater (second tree) value) 
+          (is-subtree-greater (third tree) value) t))
+        (t nil)
+    )
+)    
+        
+(print (isbst '(8 (3 (1 () ()) (6 (4 () ()) (7 () ()))) (10 () (14 (13 () ()) ())))))
+        

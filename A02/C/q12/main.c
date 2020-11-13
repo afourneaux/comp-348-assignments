@@ -12,28 +12,20 @@ static double standarddeviation(int* arr, int size, int mean);
 
 int main(void) {
     int n, i;
-    char line[255];
     int *p_array;
 
     printf("Enter the size of the array: ");
     scanf("%d", &n);
 
-    printf("Enter the array (ints separated by whitespace): ");
-    scanf("%s[0-9 ]", line);
-
     p_array = malloc(sizeof(int) * n);
-
     if (p_array == NULL) {
         printf("Error: Out of memory");
         exit(1);
     }
 
-    char *word = strtok(line, " ");
-
-    for (i = 0; i < n; i++) {
-        printf("-----> %s\n\n", word);
-        p_array[i] = atoi(&word);
-        word = strtok(NULL, " ");
+    printf("Enter the array (ints separated by whitespace): ");
+    for (i=0; i<n; i++) {
+        scanf("%d", &p_array[i]);
     }
 
     int* (*minfunc)(int*,int) = findmin;
@@ -45,7 +37,6 @@ int main(void) {
     printarr(p_array, n, maxfunc);
 
     free(p_array);
-    free(line);
     return 0;
 }
 

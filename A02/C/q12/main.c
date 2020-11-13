@@ -14,7 +14,7 @@ static double standarddeviation(int* arr, int size, int mean);
 
 int main(void) {
     int i, n;
-    printf("Enter the size of the array: ");
+    printf("Enter the array: ");
     scanf("%d", &n);
 
     int *p_array = getarray(n);

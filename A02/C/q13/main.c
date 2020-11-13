@@ -17,11 +17,8 @@ int main() {
     char delimit[]= "\t\r\n\v\f "; //All whitespace characters
     node *head = NULL;
     printf("Please enter a list of words separated by a white space (space char, tab or newline).\n");
-    while (1==1) {
-        gets(&line);
-        if (strcmp(line, ".") == 0) {
-            break;
-        }
+    gets(&line);
+    while (strcmp(line, ".") != 0) {
         char *word = strtok(line, delimit);
         while( word != NULL ) {
             if (head == NULL) {
@@ -31,6 +28,7 @@ int main() {
             }
             word = strtok(NULL, " ");
         }
+        gets(&line);
     }
     print(head);
     return 0;

@@ -1,23 +1,40 @@
 #include "selectionsort.h"
-#include "selectionsort.h" // included twice
 #include<stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <math.h>
+#include <string.h>
 
 static int* findmin(int* arr, int size);
 static int* findmax(int* arr, int size);
-static int* getarray(int n);
 static void printarr(int* arr, int size, int* (*comparator)(int*,int));
 static double average(int* arr, int size);
 static double standarddeviation(int* arr, int size, int mean);
 
 int main(void) {
-    int i, n;
-    printf("Enter the array: ");
+    int n, i;
+    char line[255];
+    int *p_array;
+
+    printf("Enter the size of the array: ");
     scanf("%d", &n);
 
-    int *p_array = getarray(n);
+    printf("Enter the array (ints separated by whitespace): ");
+    scanf("%s[0-9 ]", line);
+
+    p_array = malloc(sizeof(int) * n);
+
+    if (p_array == NULL) {
+        printf("Error: Out of memory");
+        exit(1);
+    }
+
+    char *word = strtok(line, " ");
+
+    for (i = 0; i < n; i++) {
+        printf("-----> %s\n\n", word);
+        p_array[i] = atoi(&word);
+        word = strtok(NULL, " ");
+    }
 
     int* (*minfunc)(int*,int) = findmin;
     int* (*maxfunc)(int*,int) = findmax;
@@ -28,30 +45,8 @@ int main(void) {
     printarr(p_array, n, maxfunc);
 
     free(p_array);
+    free(line);
     return 0;
-}
-
-static int* getarray(int n)
-{
-    //Allocate memory and create pointer
-    int *p_array;
-    int i;
-
-    p_array = (int *)calloc(n, sizeof(int));
-
-    //Error handling
-    if(p_array == NULL) {
-        printf("Out of memory.\n");
-        exit(1);
-    }
-
-    //Assign random integers to array
-    srand(time(NULL));
-    for(i = 0; i < n; i++) {
-        p_array[i] = rand() % 100;
-    }
-
-    return p_array;
 }
 
 static void printarr(int* arr, int size, int* (*comparator)(int*,int)) {

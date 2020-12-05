@@ -57,15 +57,12 @@ public privileged aspect ShapeAspect {
     
     //Question 8
     private static int shapeId = 1;
-    public int Shape.id;
+    private int Shape.id;
     public int Shape.getId() {
     	return this.id;
     }
-    public void Shape.setId(int newId) {
-    	this.id = newId;
-    }
     
     before(Shape s) : initialization(Shape.new()) && this(s) {
-    	s.setId(shapeId++);
+    	s.id = shapeId++;
     }
 }

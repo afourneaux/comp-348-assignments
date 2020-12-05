@@ -19,7 +19,7 @@ public class Main {
 			System.out.println("The area of " + s + "is " + s.getArea());
 			
 			//Uncomment this: (4,3,5)
-			//System.out.println("The last shape ID: " + s.getId());
+			System.out.println("The last shape ID: " + s.getId());
 			
 		} catch(Exception e) {
 			System.out.println("Error: " + e.getMessage());
